@@ -40,7 +40,7 @@ function myMap() {
 }
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKULAWZcDWh0mbimqUKLj28Sa7wIQr27c&callback=myMap"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARCofDnLJ5rl25DTPy7iLUhMfRMaIcaDo&callback=myMap"></script>
 
 
 <div  id="">
