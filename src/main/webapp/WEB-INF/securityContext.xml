@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/security
+                           http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <security:global-method-security secured-annotations="enabled" />
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	<property name="url" value="jdbc:mysql://mysql4.gear.host:3306/sasaa"/>
+	<property name="username" value="sasaa"/>
+	<property name="password" value="Ye1C428u?69_"/>
+	</bean>
+    
+    <security:http auto-config="true">
+        <!-- Restrict URLs based on role -->
+        <security:intercept-url pattern="/**" access="permitAll or hasRole('USER') or hasRole('ADMIN')" />
+        
+        <security:intercept-url pattern="/flows/createItem" access="permitAll" method="POST" />
+        
+        <!-- Override default login and logout pages -->
+        <security:form-login login-page="/loginpage" 
+        					 username-parameter="a"
+        					 password-parameter="b"
+                             default-target-url="/home" 
+                             authentication-failure-url="/loginpage?error=1" />
+        <security:logout logout-url="/logout" logout-success-url="/home" />
+        
+         <security:csrf disabled="true"/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider >
+            
+            <security:jdbc-user-service data-source-ref="dataSource" 
+            users-by-username-query="select signup_email,signup_password,active from signup where signup_email=?" 
+            authorities-by-username-query="SELECT signup_email,role FROM signup where signup_email=?;" />
+            
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>

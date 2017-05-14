@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/webflow
+http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
+ 
+	<var name="cart" class="com.pack1.HelloController" />
+ 	
+ 	<var name="deleteItem" class="com.pack1.items.item" />
+ 	<!-- 
+ 	<action-state id="addCartToOrder">
+        <evaluate expression="cart.test(  )" result="cart" />
+        <transition to="loginviewstate" on="true" />
+        <transition to="run" on="false" />
+    </action-state>
+ 	 -->
+ 	
+ 	 <view-state id="viewcart" view="/WEB-INF/flows/viewcart.jsp">
+		<transition on="home" to="home" />
+		<transition on="goToConfirmDetails"  to="confirmDetails"/>
+	</view-state>
+	
+	 <view-state id="confirmDetails" view="/WEB-INF/flows/viewcartconfirmdetails.jsp">
+		<transition  on="goTocart" to="viewcart"/>
+		<transition  on="goToCompleteOrder" to="completeOrder" />
+	</view-state>
+ 	 
+ 	<!--  <view-state id="loginviewstate" view="/WEB-INF/login.jsp">
+		<transition  on="goTocart" to="viewcart"/> 		
+	</view-state>  -->  <!-- why ?????????????/ -->
+	
+ 	 
+	 <view-state id="completeOrder" view="/WEB-INF/flows/viewcartcompleteorder.jsp">
+		<transition  on="goToConfirmDetails" to="confirmDetails"/>
+		<transition  on="goTothankyou" to="thankyou" />
+	</view-state>
+	
+	<end-state id="thankyou" view="/WEB-INF/flows/viewcartthankyoupage.jsp"/>
+	 
+ 	 <!-- 
+	<view-state id="run" view="/WEB-INF/flows/viewcart.jsp">
+		<transition to="productsPage" on="goToProducts" />
+		<transition to="goToCheckout" on="goToCheckout" />
+	</view-state>
+	
+	<view-state id="loginviewstate" view="/WEB-INF/login.jsp">
+		<transition to="run" on="goToCart" />		
+	</view-state>
+	
+	<view-state id="goToCheckout" view="/WEB-INF/flows/viewcartconfirmdetails.jsp">
+		<transition to="run" on="BackToCart" />
+		<transition to="ViewCompleteOrder" on="ViewCompleteOrder" />
+	</view-state>
+	
+	<view-state id="productsPage" view="externalRedirect:/addProduct" /> 
+	
+	<view-state id="ViewCompleteOrder" view="/WEB-INF/flows/viewcartcompleteorder.jsp">
+		<transition to="goToCheckout" on="BackToConfirmDetails" />
+		<transition to="confirmOrder" on="ConfirmOrder" />
+	</view-state>	 
+	 
+
+		<end-state id="confirmOrder" view="/WEB-INF/flows/viewcartthankyoupage.jsp"/>
+	
+	 -->  
+</flow>
